@@ -47,7 +47,9 @@
             const [price, setPrice] = useState('');
             const [targetMargin, setTargetMargin] = useState('20');
             const [cost, setCost] = useState('');
-            // Removed explicit shipping/quantity inputs from state, will use constants
+            
+            // Image Fallback State
+            const [heroOk, setHeroOk] = useState(true);
 
             // Rates (Manual Inputs for Top Section)
             const [transFeeRate, setTransFeeRate] = useState(6);
@@ -363,20 +365,25 @@
                         </div>
                     </div>
 
-                    {/* HERO BANNER */}
+                    {/* HERO BANNER - 修正圖片裁切問題 */}
                     <div className="bg-gray-50">
                         <div className="max-w-2xl mx-auto px-4 pt-4">
                             <div className="relative overflow-hidden rounded-xl border border-gray-200 shadow-sm bg-gray-200">
-                                {/* fallback background + subtle overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-black/10 to-transparent pointer-events-none"></div>
-
+                                {/* 移除遮罩，因為遮罩在自動高度下可能會跑版，且圖片需要清晰呈現 */}
+                                {/* 關鍵修正：className 改為 w-full h-auto (自然寬高) */}
                                 <img
                                     src="./hero.jpg"
                                     alt="Hero banner"
-                                    className="w-full h-[160px] sm:h-[200px] object-cover"
+                                    className="w-full h-auto block"
                                     loading="eager"
                                     onError={() => setHeroOk(false)}
+                                    style={{ minHeight: '100px', display: heroOk ? 'block' : 'none' }}
                                 />
+                                {!heroOk && (
+                                    <div className="h-[160px] flex items-center justify-center text-gray-400">
+                                        圖片無法載入
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
