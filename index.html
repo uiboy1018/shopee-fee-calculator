@@ -375,22 +375,8 @@
                                     alt="Hero banner"
                                     className="w-full h-[160px] sm:h-[200px] object-cover"
                                     loading="eager"
-                                    onError={(e) => {
-                                        // 若圖片載不到，避免破圖 icon
-                                        e.currentTarget.style.display = 'none';
-                                    }}
+                                    onError={() => setHeroOk(false)}
                                 />
-
-                                {/* 如果圖片載不到，留一個漂亮的灰底區 */}
-                                <div className="w-full h-[160px] sm:h-[200px] flex items-center justify-center text-gray-500 text-sm">
-                                    （請將 hero.jpg 上傳到同一層，或確認檔名大小寫）
-                                </div>
-                            </div>
-
-                            {/* 小提示列（可留可刪） */}
-                            <div className="mt-3 text-xs text-gray-500 flex items-center justify-between">
-                                <span>圖片路徑：<span className="font-mono">./hero.jpg</span></span>
-                                <span className="hidden sm:inline">建議尺寸：1200×400 以上</span>
                             </div>
                         </div>
                     </div>
